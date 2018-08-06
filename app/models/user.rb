@@ -15,5 +15,12 @@ class User < ApplicationRecord
 
   def allocate_uuid
       self.uuid=SecureRandom.hex(16)
+     self.password="1linkwok@"
+     # self.confirm_password="1linkwok@"
+  end
+
+  def before_import_save(_row)
+    self.password = '1linkwok@'
+    self.password_confirmation = '1linkwok@'
   end
 end
