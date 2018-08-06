@@ -8,11 +8,11 @@ class Task < ApplicationRecord
 
 
 
-  state_machine :status,:initial => :pending do
-
-    event :complete do
-      transition [:pending]=>:completed
-    end
-
-  end
+  # state_machine :status,:initial => :pending do
+  #
+  #   event :complete do
+  #     transition [:pending]=>:completed
+  #   end
+  #
+  # end
 end
