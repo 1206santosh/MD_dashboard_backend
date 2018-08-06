@@ -18,10 +18,12 @@ class TasksController < ApplicationController
         # t["completed"]=false
       end
 
+      if task.due_date.present?
       if task.due_date>=Time.new(Date.today.year,Date.today.month,Date.today.day) && task.due_date<=Time.new(Date.today.year,Date.today.month,Date.today.day,23,59)
         t["scheduled"]=true
       else
         # t["scheduled"]=false
+      end
       end
 
       tasks<<t
