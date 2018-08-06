@@ -55,6 +55,9 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     @task.assigner_id=@current_user.id
+    due_date=params[:task][:due_date].to_date
+    @task.due_date=Time.new(due_date.year,due_date.month,due_date.day)
+
     if @task.save
       if params[:file_ids].present?
         params[:file_ids].each do |file_id|
