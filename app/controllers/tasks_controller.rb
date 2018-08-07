@@ -25,6 +25,12 @@ class TasksController < ApplicationController
       else
         # t["scheduled"]=false
       end
+
+        if task.assignee_id.present?
+          t["assignee"]=task.assignee.name
+        else
+          t["assignee"]=""
+        end
       end
 
       tasks<<t
