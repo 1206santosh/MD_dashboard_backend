@@ -43,7 +43,7 @@ class TasksController < ApplicationController
       my_notes=[]
       @task.comments.each do |comment|
         if comment.comment_type!="note"
-        comments_by_user.push({'content':comment.content,'commentor_name':"Santosh",'created_at':comment.created_at})
+        comments_by_user.push({'content':comment.content,'commentor_name':comment.user.name,'created_at':comment.created_at})
         else
         my_notes.push({'content':comment.content,'created_at':comment.created_at})
         end
@@ -99,4 +99,12 @@ class TasksController < ApplicationController
     def task_params
       params.require(:task).permit(:meeting_id, :description, :due_date, :status, :flag,:assignee_id)
     end
+end
+
+a.each do |user|
+  b=User.find_by(name:user)
+  if b.present?
+     UserMeeting.create(meeting_id:18,user_id:b.id)
+  end
+
 end
