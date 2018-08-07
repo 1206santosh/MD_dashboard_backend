@@ -12,6 +12,7 @@ class TasksController < ApplicationController
     tasks=[]
     @tasks.each do |task|
       t=task.as_json
+      t.due_date=task.due_date.strftime("%d/%m%/Y")
       if task.status=="completed"
         t["completed"]=true
       else
