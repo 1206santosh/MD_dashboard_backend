@@ -101,10 +101,5 @@ class TasksController < ApplicationController
     end
 end
 
-a.each do |user|
-  b=User.find_by(name:user)
-  if b.present?
-     UserMeeting.create(meeting_id:18,user_id:b.id)
-  end
 
-end
+
