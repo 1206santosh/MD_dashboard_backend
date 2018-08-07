@@ -19,7 +19,7 @@ class TasksController < ApplicationController
       end
 
       if task.due_date.present?
-        t.due_date=task.due_date.strftime("%d/%m%/Y")
+        t["due_date"]=task.due_date.strftime("%d/%m%/Y")
       if task.due_date>=Time.new(Date.today.year,Date.today.month,Date.today.day) && task.due_date<=Time.new(Date.today.year,Date.today.month,Date.today.day,23,59)
         t["scheduled"]=true
       else
