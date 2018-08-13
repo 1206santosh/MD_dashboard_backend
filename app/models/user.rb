@@ -2,7 +2,7 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+  :recoverable, :rememberable, :trackable, :validatable
 
   has_many :comments
   has_many :assigned_task ,class_name:"Task",foreign_key: :assignee_id
@@ -14,9 +14,9 @@ class User < ApplicationRecord
   before_create :allocate_uuid
 
   def allocate_uuid
-      self.uuid=SecureRandom.hex(16)
-     self.password="1linkwok@"
-     # self.confirm_password="1linkwok@"
+    self.uuid=SecureRandom.hex(16)
+    self.password="1linkwok@"
+    # self.confirm_password="1linkwok@"
   end
 
   def before_import_save(_row)

@@ -3,8 +3,22 @@ class MeetingsController < ApplicationController
 
   # GET /meetings
   def index
-    @meetings = @current_user.meetings.order("created_at DESC")
-    render json: @meetings
+    # @meetings = @current_user.meetings.order("created_at DESC")
+    @meetings = Meeting.where('scheduled_time BETWEEN ? AND ?', DateTime.now.beginning_of_day, DateTime.now.end_of_day).all
+    meetings=[]
+    @meetings.each do |meeting|
+      m=meeting.as_json
+      if meeting.scheduled_time.present?
+        # if meeting.scheduled_time>=Time.new(Date.today.year,Date.today.month,Date.today.day) && meeting.scheduled_time<=Time.new(Date.today.year,Date.today.month,Date.today.day,23,59)
+          m["scheduled"]=true
+        # else
+          # m["scheduled"]=false
+        # end
+      end
+      meetings<<m
+    end
+    puts @meetings.count
+    render json: meetings
   end
 
   # GET /meetings/1
@@ -20,9 +34,9 @@ class MeetingsController < ApplicationController
     if @meeting.save
       UserMeeting.create(user_id:@current_user.id,meeting_id:@meeting.id)
       if params[:attendess].present?
-         params[:attendess].each do |attendee|
-           UserMeeting.create(user_id:attendee,meeting_id:@meeting.id)
-         end
+        params[:attendess].each do |attendee|
+          UserMeeting.create(user_id:attendee,meeting_id:@meeting.id)
+        end
       end
       render json: @meeting, status: :created, location: @meeting
     else
@@ -45,13 +59,13 @@ class MeetingsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_meeting
-      @meeting = Meeting.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_meeting
+    @meeting = Meeting.find(params[:id])
+  end
 
-    # Only allow a trusted parameter "white list" through.
-    def meeting_params
-      params.require(:meeting).permit(:description, :scheduled_time, :start_time, :end_time)
-    end
+  # Only allow a trusted parameter "white list" through.
+  def meeting_params
+    params.require(:meeting).permit(:description, :scheduled_time, :start_time, :end_time)
+  end
 end
