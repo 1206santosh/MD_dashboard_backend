@@ -4,16 +4,16 @@ class MeetingsController < ApplicationController
   # GET /meetings
   def index
     # @meetings = @current_user.meetings.order("created_at DESC")
-    @meetings = Meeting.where('scheduled_time BETWEEN ? AND ?', DateTime.now.beginning_of_day, DateTime.now.end_of_day).all
+    @meetings = Meeting.all
     meetings=[]
     @meetings.each do |meeting|
       m=meeting.as_json
       if meeting.scheduled_time.present?
-        # if meeting.scheduled_time>=Time.new(Date.today.year,Date.today.month,Date.today.day) && meeting.scheduled_time<=Time.new(Date.today.year,Date.today.month,Date.today.day,23,59)
+        if meeting.scheduled_time>=DateTime.now.at_beginning_of_day&& meeting.scheduled_time<=DateTime.now.end_of_day
           m["scheduled"]=true
         # else
           # m["scheduled"]=false
-        # end
+        end
       end
       meetings<<m
     end

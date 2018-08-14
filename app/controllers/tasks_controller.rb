@@ -1,5 +1,5 @@
 class TasksController < ApplicationController
-  before_action :set_task, only: [:show, :update, :destroy]
+  before_action :set_task, only: [:show, :update, :destroy,:assign_task]
 
   # GET /tasks
   def index
@@ -92,6 +92,11 @@ class TasksController < ApplicationController
   # DELETE /tasks/1
   def destroy
     @task.destroy
+  end
+
+  def assign_task
+    @task.allocate_assignee(params[:assignee_id])
+    render json:{success:true}
   end
 
 

@@ -15,4 +15,8 @@ class Task < ApplicationRecord
   #   end
   #
   # end
+  #
+  def allocate_assignee(assignee_id)
+     self.update(assignee_id:assignee_id)
+  end
 end
