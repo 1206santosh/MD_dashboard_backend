@@ -65,6 +65,7 @@ class TasksController < ApplicationController
     @task.uploads.each do |upload|
       task['upload'].append({'filename':upload.file.blob.filename.to_s,file_url:Rails.application.routes.url_helpers.rails_blob_path(upload.file, only_path: true)})
     end
+    task['timeline']=@task.get_timeline()
     render json: task
   end
 
