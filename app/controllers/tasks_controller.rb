@@ -107,7 +107,7 @@ class TasksController < ApplicationController
   end
 
   def toggle_state
-      new_state=@task.toggle_state
+      new_state=@task.toggle_state(@current_user.id)
     render json:{success:true,new_state:new_state}
   end
 

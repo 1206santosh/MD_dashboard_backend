@@ -10,6 +10,7 @@ class User < ApplicationRecord
   has_many :created_meetings ,class_name:"Meeting",foreign_key: :created_by_id
   has_many :user_meetings
   has_many :meetings,through: :user_meetings
+  has_many :state_transitions,class_name:"StateTransition",foreign_key: :transition_by
 
   before_create :allocate_uuid
 
