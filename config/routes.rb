@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     member  do
       post 'assign_task'
       post 'toggle_state'
+      get 'task_timeline'
     end
   end
   resources :meetings

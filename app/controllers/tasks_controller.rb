@@ -1,5 +1,5 @@
 class TasksController < ApplicationController
-  before_action :set_task, only: [:show, :update, :destroy,:assign_task ,:toggle_state]
+  before_action :set_task, only: [:show, :update, :destroy,:assign_task ,:toggle_state,:task_timeline]
 
   # GET /tasks
   def index
@@ -65,7 +65,7 @@ class TasksController < ApplicationController
     @task.uploads.each do |upload|
       task['upload'].append({'filename':upload.file.blob.filename.to_s,file_url:Rails.application.routes.url_helpers.rails_blob_path(upload.file, only_path: true)})
     end
-    task['timeline']=@task.get_timeline()
+    # task['timeline']=@task.get_timeline()
     render json: task
   end
 
@@ -110,6 +110,10 @@ class TasksController < ApplicationController
   def toggle_state
       new_state=@task.toggle_state(@current_user.id)
     render json:{success:true,new_state:new_state}
+  end
+
+  def task_timeline
+     render json: @task.get_timeline
   end
 
 
