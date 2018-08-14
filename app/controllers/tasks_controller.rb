@@ -106,6 +106,11 @@ class TasksController < ApplicationController
     render json:{success:true}
   end
 
+  def mark_complete
+      @task.mark_complete
+    render json: {success:true}
+  end
+
 
 
 
