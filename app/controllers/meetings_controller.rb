@@ -21,6 +21,11 @@ class MeetingsController < ApplicationController
     render json: meetings
   end
 
+  # @emails = User.all
+  # @emails.each do |email|
+  #   email.update(email:email.email+"1")
+  # end
+
   # GET /meetings/1
   def show
     render json: @meeting
