@@ -22,9 +22,9 @@ class Task < ApplicationRecord
 
   def toggle_state
       if self.status!="completed"
-        self.update(status:"pending")
-      else
         self.update(status:"completed")
+      else
+        self.update(status:"pending")
       end
     return self.status
   end
