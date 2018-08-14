@@ -35,6 +35,10 @@ class TasksController < ApplicationController
           t["assignee"]=""
         end
       end
+      t['upload']=[]
+      task.uploads.each do |upload|
+        t['upload'].append({'filename':upload.file.bolb.filename.to_s,file_url:Rails.application.routes.url_helpers.rails_blob_path(upload.file, only_path: true)})
+      end
 
       tasks<<t
 
