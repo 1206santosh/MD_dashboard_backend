@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   resources :tasks do
     member  do
       post 'assign_task'
-      post 'mark_complete'
+      post 'toggle_state'
     end
   end
   resources :meetings
