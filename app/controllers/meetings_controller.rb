@@ -19,9 +19,10 @@ class MeetingsController < ApplicationController
         meetings<<m
       end
     else
+      meetings={}
       recent_meetings=@meetings.group_by{|x| x.scheduled_time.strftime("%d/%m/%Y")}
-      meetings=recent_meetings[Date.today().strftime("%d/%m/%Y")]
-      meetings<<recent_meetings[Date.tomorrow().strftime("%d/%m/%Y")]
+      meetings["today"]=recent_meetings[Date.today().strftime("%d/%m/%Y")]
+      meetings["tomorrow"]=recent_meetings[Date.tomorrow().strftime("%d/%m/%Y")]
     end
 
     puts @meetings.count
