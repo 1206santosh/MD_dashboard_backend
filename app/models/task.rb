@@ -37,7 +37,7 @@ class Task < ApplicationRecord
       t={}
       t["event"]="Task Created"
       t["date"]=self.created_at.strftime("%d/%m/%Y")
-      t["text"]="Task Created by #{self.assigner.name}"
+      t["text"]="Task Created by #{self.assigner.name rescue "NA"}"
       timeline<<t
       self.state_transitions.each do |state|
         t["event"]="State Transition"
@@ -45,6 +45,7 @@ class Task < ApplicationRecord
         t["text"]="Task state changed to #{state.to}  from #{state.from} by #{state.transition_user.name}"
        timeline<<t
       end
+    return timeline
   end
 
 end
