@@ -6,9 +6,9 @@ class TasksController < ApplicationController
     if params[:meeting_id].present?
       @tasks = Task.where(meeting_id:params[:meeting_id])
     else
-      # meetings=@current_user.meetings.pluck(:id)
-      # @tasks=Task.where(meeting_id:meetings)
-      @tasks=Task.where(meeting_id:1)
+      meetings=@current_user.meetings.pluck(:id)
+      @tasks=Task.where(meeting_id:meetings)
+      # @tasks=Task.where(meeting_id:1)
     end
     tasks=[]
     @tasks.each do |task|
