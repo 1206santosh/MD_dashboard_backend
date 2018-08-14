@@ -20,7 +20,11 @@ class Task < ApplicationRecord
      self.update(assignee_id:assignee_id)
   end
 
-  def mark_complete
-      self.update(status:"completed")
+  def toggle_state
+      if self.status!="completed"
+        self.update(status:"pending")
+      else
+        self.update(status:"completed")
+      end
   end
 end

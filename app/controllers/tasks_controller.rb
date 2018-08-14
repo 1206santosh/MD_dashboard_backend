@@ -106,8 +106,8 @@ class TasksController < ApplicationController
     render json:{success:true}
   end
 
-  def mark_complete
-      @task.mark_complete
+  def toggle_state
+      @task.toggle_state
     render json:{success:true}
   end
 
