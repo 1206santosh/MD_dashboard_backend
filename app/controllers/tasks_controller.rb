@@ -35,10 +35,7 @@ class TasksController < ApplicationController
           t["assignee"]=""
         end
       end
-      t['upload']=[]
-      task.uploads.each do |upload|
-        t['upload'].append({'filename':upload.file.bolb.filename.to_s,file_url:Rails.application.routes.url_helpers.rails_blob_path(upload.file, only_path: true)})
-      end
+
 
       tasks<<t
 
@@ -64,6 +61,10 @@ class TasksController < ApplicationController
     end
     task["comments_by_user"]=comments_by_user
     task["my_notes"]=my_notes
+    task['upload']=[]
+    @task.uploads.each do |upload|
+      task['upload'].append({'filename':upload.file.bolb.filename.to_s,file_url:Rails.application.routes.url_helpers.rails_blob_path(upload.file, only_path: true)})
+    end
     render json: task
   end
 
