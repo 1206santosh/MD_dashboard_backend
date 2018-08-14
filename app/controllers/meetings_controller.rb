@@ -3,20 +3,27 @@ class MeetingsController < ApplicationController
 
   # GET /meetings
   def index
-    # @meetings = @current_user.meetings.order("created_at DESC")
-    @meetings = Meeting.all
+    @meetings = @current_user.meetings.order("created_at DESC")
+    # @meetings = Meeting.all
     meetings=[]
-    @meetings.each do |meeting|
-      m=meeting.as_json
-      if meeting.scheduled_time.present?
-        if meeting.scheduled_time>=DateTime.now.at_beginning_of_day&& meeting.scheduled_time<=DateTime.now.end_of_day
-          m["scheduled"]=true
-        # else
-          # m["scheduled"]=false
+    if params[:recent_activity].blank?
+      @meetings.each do |meeting|
+        m=meeting.as_json
+        if meeting.scheduled_time.present?
+          if meeting.scheduled_time>=DateTime.now.at_beginning_of_day&& meeting.scheduled_time<=DateTime.now.end_of_day
+            m["scheduled"]=true
+          # else
+            # m["scheduled"]=false
+          end
         end
+        meetings<<m
       end
-      meetings<<m
+    else
+      recent_meetings=@meetings.group_by{|x| x.scheduled_time.strftime("%d/%m/%Y")}
+      meetings=recent_meetings[Date.today().strftime("%d/%m/%Y")]
+      meetings<<recent_meetings[Date.tomorrow().strftime("%d/%m/%Y")]
     end
+
     puts @meetings.count
     render json: meetings
   end
