@@ -15,7 +15,7 @@ class User < ApplicationRecord
 
   def allocate_uuid
     self.uuid=SecureRandom.hex(16)
-    self.password="1linkwok@"
+    # self.password="1linkwok@"
     # self.confirm_password="1linkwok@"
   end
 
