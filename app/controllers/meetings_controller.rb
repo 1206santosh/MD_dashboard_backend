@@ -28,6 +28,7 @@ class MeetingsController < ApplicationController
       day={}
       day["day"]="tomorrow"
       day["meetings"]=recent_meetings[Date.tomorrow().strftime("%d/%m/%Y")]
+      meetings<<day
     end
 
     puts @meetings.count
