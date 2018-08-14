@@ -26,5 +26,6 @@ class Task < ApplicationRecord
       else
         self.update(status:"completed")
       end
+    return self.status
   end
 end

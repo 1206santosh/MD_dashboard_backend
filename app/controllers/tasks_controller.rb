@@ -107,8 +107,8 @@ class TasksController < ApplicationController
   end
 
   def toggle_state
-      @task.toggle_state
-    render json:{success:true}
+      new_state=@task.toggle_state
+    render json:{success:true,new_state:new_state}
   end
 
 
