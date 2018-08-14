@@ -1,5 +1,5 @@
 class TasksController < ApplicationController
-  before_action :set_task, only: [:show, :update, :destroy,:assign_task ,:mark_complete]
+  before_action :set_task, only: [:show, :update, :destroy,:assign_task ,:toggle_state]
 
   # GET /tasks
   def index
