@@ -34,7 +34,7 @@ class Task < ApplicationRecord
 
   def get_timeline
       timeline=[]
-      self.state_transitions.order_by("created_at DESC").each do |state|
+      self.state_transitions.order("created_at DESC").each do |state|
         t={}
         t["event"]="State Transition"
         t["date"]=state.created_at.strftime("%d/%m/%Y")
