@@ -34,17 +34,18 @@ class Task < ApplicationRecord
 
   def get_timeline
       timeline=[]
-      t={}
-      t["event"]="Task Created"
-      t["date"]=self.created_at.strftime("%d/%m/%Y")
-      t["text"]="Task Created by #{self.assigner.name rescue "NA"}"
-      timeline<<t
-      self.state_transitions.each do |state|
+      self.state_transitions.order_by("created_at DESC").each do |state|
+        t={}
         t["event"]="State Transition"
         t["date"]=state.created_at.strftime("%d/%m/%Y")
         t["text"]="Task state changed to #{state.to}  from #{state.from} by #{state.transition_user.name}"
        timeline<<t
       end
+      t={}
+      t["event"]="Task Created"
+      t["date"]=self.created_at.strftime("%d/%m/%Y")
+      t["text"]="Task Created by #{self.assigner.name rescue "NA"}"
+      timeline<<t
     return timeline
   end
 
