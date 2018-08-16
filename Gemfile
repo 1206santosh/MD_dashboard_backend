@@ -30,6 +30,7 @@ gem 'state_machines-activerecord'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'pg'
 gem 'rails_admin_import'
+gem "aws-sdk-s3", require: false
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 # gem 'rack-cors'
