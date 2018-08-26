@@ -9,6 +9,7 @@ class MeetingsController < ApplicationController
     if params[:recent_activity].blank?
       @meetings.each do |meeting|
         m=meeting.as_json
+        m['scheduled_time']=meeting.scheduled_time.to_s(:short)
         if meeting.scheduled_time.present?
           if meeting.scheduled_time>=DateTime.now.at_beginning_of_day&& meeting.scheduled_time<=DateTime.now.end_of_day
             m["scheduled"]=true
